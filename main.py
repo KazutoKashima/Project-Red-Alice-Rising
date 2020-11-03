@@ -1,29 +1,11 @@
-""" A warm welcome to fellow developers!
-
-Hi there! this is a virtual assistant I started working on back in 8th grade.
-It started off very basic but now I'm adding speech recognition and computer manipulation for ease of access and remote user control.
-
-What's the purpose of this thing?
-Well simple enough, it's literally designed to help users with imparements, mental instabilities to feel more comfortable using technology.
-As there is no GUI (Graphical User Interface), yet I am currently not porting it to anything outside of a computer until I can get a suitable GUI for it.
-
-What are the compatible Operating Systems? (OS Compatibility)
-Well so far it's designed for MacOSX, Linux/UNIX, Debian and Windows
-and has been tested thoroughly on Windows 10 and Linux Operating Systems.
-
-"""
-
 
 # required modules
 import random 
 from datetime import datetime 
 from pytz import timezone
 import webbrowser
-import os
 import subprocess
-import json
-# speech_recoginition as sr
-# pyttsx
+import memory as mem
 
 lockPC='rundll32.exe user32.dll, LockWorkStation'
 
@@ -33,32 +15,6 @@ au_time = datetime.now (Australia)
 print (au_time.strftime ('%Y/%m/%d %H:%M:%S'))
 
 # Initial greeting
-def coreFileCheck():
-        dbFile = './data.txt'
-        checkFile = os.path.isfile(dbFile)
-
-        """ 
-        checking if the data file is there and has UserData in it,
-        otherwise ask for name
-        """
-
-        if checkFile == True:
-                with open(dbFile) as database:
-                        data = json.load(database)
-                        for usr in data['UserData']:
-                                SIGNATURE1 = "Welcome back "+usr['name']+"!"+" What do you need"
-                                print(SIGNATURE1)
-        else:
-                SIGNATURE2 = input("Hi there! I am [REDACTED]! Your personal assistant! In order to continue, could you give me a name to call you by? This can be real or fake: ")
-                data = {}
-                data['UserData'] = []
-                data['UserData'].append({
-                        'name': SIGNATURE2
-                })
-                with open(dbFile, 'w') as outfile:
-                        json.dump(data, outfile)
-""" Greeting """
-coreFileCheck()
 
 """ User and VA Q&As """
 # User questions marked with #?
@@ -91,6 +47,8 @@ LogoutPC = ['Logout of my pc', 'logout of pc']
 LockMyPC=['Lock my PC', 'Lock PC', 'lock my pc', 'lock pc']
 RestartPC=['Restart my PC', 'restart my pc', 'restart pc', 'Restart PC']
 ShutdwnPC=['Shutdown my PC', 'shutdown my pc', 'shutdown pc', 'Shutdown PC']
+
+mem.coreFileCheck() # check for the core files
 
 """ Main Logic """
 while True:
@@ -157,7 +115,7 @@ while True:
 
     elif userInput in ShutdwnPC:
         print("Ok! Shutting down the computer!")
-        subprocess.call(["shutdown", "-f", "-r", "-t", "10", "-c", '[REDACTED] is shutting down the PC'])
+        subprocess.call(["shutdown", "-f", "-r", "-t", "10", "-c", 'Alice is shutting down the PC'])
 
     elif userInput in RestartPC:
         print("Ok! Restarting the computer!")
