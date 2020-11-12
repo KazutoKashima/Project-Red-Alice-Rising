@@ -3,7 +3,7 @@ import sys
 import json
 
 def coreFileCheck():
-        dbFile = './data.txt'
+        dbFile = '../coreFiles.log'
         checkFile = os.path.isfile(dbFile)
 
         """ 
@@ -15,7 +15,7 @@ def coreFileCheck():
                 with open(dbFile) as database:
                         data = json.load(database)
                         for usr in data['UserData']:
-                                SIGNATURE1 = "Welcome back "+usr['name']+"!"+" What do you need"
+                                SIGNATURE1 = "Welcome back "+usr['name']+"!"+" What do you need?\n"
                                 print(SIGNATURE1)
         else:
                 SIGNATURE2 = input("Hi there! I am Alice! Your personal assistant! In order to continue, could you give me a name to call you by? This can be real or fake: ")
@@ -30,5 +30,5 @@ def coreFileCheck():
                 with open(dbFile) as db:
                     data = json.load(db)
                     for usr in data['UserData']:
-                        SIG3 = f"Hi there,{usr['name']}! How can I help you?"
+                        SIG3 = f"Hi there,{usr['name']}! How can I help you?\n"
                         print(SIG3)
