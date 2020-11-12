@@ -1,0 +1,13 @@
+What's left to do?
+------------------
+1. Speech Recognition
+2. Deeper Memory function
+3. Voice Input
+4. Consistent Core File Check (CCFC)
+
+Suggestions?
+------------
+-Seperate the commands into a seperate File
+-Let the user choose whether they want text or voice Input
+|
++-> Have this option available in all modes
