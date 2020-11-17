@@ -1,6 +1,4 @@
 {
-    "python.pythonPath": "/bin/python3",
-    //"workbench.preferredLightColorTheme": "Blakai Theme",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
 }
