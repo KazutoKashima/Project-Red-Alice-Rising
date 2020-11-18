@@ -17,9 +17,9 @@ v = pyttsx3.init()
 icon = ""
 root = Tk()                              
 root.title('Alice - Voice Input')
-root.iconbitmap('../dataFiles/Alice.ico')
+root.iconbitmap('../dataFiles/Alice.bmp')
 style = ttk.Style()
-style.theme_use('alt')
+style.theme_use('vista')
 
 # The image that is used for the speak button
 
@@ -37,6 +37,7 @@ question_responses = ['Okay', "I'm fine", 'i am great!', "Brilliant!"]
 greeting_responses = ['Hello!', 'How are you?', 'Good day!', 'Gday mate!']   
 time = ['What is the time?', 'What time is it?', 'what is the time', 'what time is it', 'whats the time']  
 QRS = ['thats great', 'nice', 'cool'] # Question Response # not really needed.
+
 humanEmotionG = ['Great', 'Brilliant', 'Awesome', 'Good', 'nice', 'happy', 'superfluous', 'excited', 'good', 'great', 'Nice', 'Happy', 'Superfluous', 'Excited', 'awesome', 'brilliant']   
 humanEmotionB = ['upset', 'sad', 'bad', 'ugly', 'stupid', 'like an idiot', 'foolish']  
 HEGResponse = ['Thats great!', 'Im glad to hear that! :)', 'Thats awesome']   
@@ -46,6 +47,7 @@ HelpRequestNegative = ['no', 'unfortunately not', 'you cant']
 HRPResponse = ['Ok, what do you want me to do?', 'How can I help']   
 HRNResponse = ['Oh... Sorry I wish I could help :(', 'Thats sad to hear', 'Thats no good', 'Dont worry! Everything gets better eventually :)', 'I wish you were feeling better']   
 EmotionQuestion = ['How are you?', 'What are you feeling like?']   
+
 thanks = ['thank you', 'Thank you', 'thanks', 'Thanks']   
 thanksResponse = ['You are welcome!', "You're welcome!", 'No problem!']    
 goodbye = ["Goodbye", 'cya', 'bye', 'goodbye', 'later']     
@@ -53,11 +55,15 @@ LawsOfRoboticsQ = ['Do you follow the three laws of robotics?', 'do you follows 
 LORQA = ['Yes I do', 'Why wouldn\'t I?', 'Why of course I do!']
 Help = ['Can you help me?', 'I need help', 'help', 'Help', 'i need your help', 'can you help me?', 'can you help me', 'Can you help me', 'i need help', 'can you help with something', 'can you help me with something?']
 searchFor = "I want to search for something"
+
 # PC Controlling 
 LogoutPC = ['Logout of my pc', 'logout of pc']
 LockMyPC=['Lock my PC', 'Lock PC', 'lock my pc', 'lock pc']
 RestartPC=['Restart my PC', 'restart my pc', 'restart pc', 'Restart PC']
 ShutdwnPC=['Shutdown my PC', 'shutdown my pc', 'shutdown pc', 'Shutdown PC']
+
+# Help commands
+Commands = ['What can you do?', 'What can you do?', 'Help', 'help', 'What are your commands?', 'Commands']
 
 """ ---------------------- Main Logic ------------------------------- """
 # the main logic, defining what clicking of Speak! does
@@ -102,6 +108,45 @@ def buttonClick():
                     response = random.choice(greetings)
                     v.say(response)
                     print(response)
+                
+                elif message in questions:
+                    response = random.choice(question_responses)
+                    v.say(response)
+                    print(response)
+                
+                elif message in LockMyPC:
+                    response = "Sure thing! Locking the computer..."
+                    v.say(response)
+                    print(response)
+                
+                elif message in LogoutPC:
+                    response = "Sure thing! Logging you out"
+                    v.say(response)
+                    print(response)
+                
+                elif message in RestartPC:
+                    response = "Sure thing! Restarting the computer..."
+                    v.say(response)
+                    print(response)
+                
+                elif message in ShutdwnPC:
+                    response = "Sure thing! Shutting down the computer..."
+                    v.say(response)
+                    print(response)
+
+                elif message in Commands:
+                    response = "I can do the following:\n- Shutdown, lock, restart, or log you out\n-Greet you\n-Or Respond to basic greeting questions\n\nMore will come, soon!"
+                    v.say(response)
+                    print(response)
+
+                elif message == None:
+                    v.say("Sorry but you you didn't say anything, please try again by pressing the speak button")
+                    print("Sorry but you didn't say anything, please try again by pressing teh speak button")
+                    return
+                
+                else:
+                    v.say("Sorry but I couldn't understand you or you didn't say anything. Could you say it again?")
+                    print("Sorry but I couldn't understand you or you didn't say anything. Could you say it again?")
 
     except sr.UnknownValueError as UnknownValErr:
         print("Sorry! But I couldn't understand you, could you please try again?")
