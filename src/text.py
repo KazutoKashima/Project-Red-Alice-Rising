@@ -35,7 +35,7 @@ print (au_time.strftime ('%Y/%m/%d %H:%M:%S'))
 # Initial greeting
 def coreFileCheck():
         dbFile = '../coreFiles/data.log'
-        checkFile = os.path.isdir("../coreFiles")
+        checkFile = os.path.isfile("../coreFiles/data.log")
         
         """ 
         checking if the data file is there and has UserData in it,
