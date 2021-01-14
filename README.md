@@ -17,4 +17,4 @@ Once that's completed run `pip install PyAudio-0.2.11-cp39-cp39-win_amd64.whl` t
 ![Installing Alice](https://github.com/KazutoKashima/Project-Red-Alice-Rising/blob/master/Installing_Alice.gif)  
   
 # Contact Me:  
-email: phoenixreid03@gmail.com  
+email: project-red-alice@outlook.com 
