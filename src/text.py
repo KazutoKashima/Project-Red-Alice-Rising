@@ -22,6 +22,7 @@ import webbrowser
 import os
 import subprocess
 import json
+import memory as mem
 # speech_recoginition as sr
 # pyttsx3
 
@@ -32,40 +33,8 @@ Australia = timezone ('Australia/Sydney')
 au_time = datetime.now (Australia) 
 print (au_time.strftime ('%Y/%m/%d %H:%M:%S'))
 
-# Initial greeting
-def coreFileCheck():
-        dbFile = '../coreFiles/data.log'
-        checkFile = os.path.isfile("../coreFiles/data.log")
-        
-        """ 
-        checking if the data file is there and has UserData in it,
-        otherwise ask for name
-        """
-
-        if checkFile == True:
-                with open(dbFile) as database:
-                        data = json.load(database)
-                        for usr in data['UserData']:
-                                SIGNATURE1 = "Welcome back "+usr['name']+"!"+" What do you need?"
-                                print(SIGNATURE1+'\n')
-        else:
-                SIGNATURE2 = input("Hi there! I am Alice! Your personal assistant! In order to continue, could you give me a name to call you by? This can be real or fake: ")
-                data = {}
-                data['UserData'] = []
-                data['UserData'].append({
-                        'name': SIGNATURE2
-                })
-                with open(dbFile, 'w+') as outfile:
-                        json.dump(data, outfile)
-                        
-                with open(dbFile) as db:
-                    data = json.load(db)
-                    for usr in data['UserData']:
-                        SIG3 = f"\nHi {usr['name']}! How can I help you?\n"
-                        print(SIG3)
-                    
-""" Greeting """
-coreFileCheck()
+# Initial greeting and file check
+mem.coreFileCheck()
 
 """ User and VA Q&As """
 # User questions marked with #?
@@ -200,26 +169,74 @@ while True:
         elif userInput in goodbye:
             print("Goodbye! Have a nice day :)")
             break
+            
+        elif userInput in open("../coreFiles/newWords.log", 'r+'):
+            print("Sorry this is in beta, so it may be buggy!\n\n")
 
-        elif userInput in open("../coreFiles/newWords.log", 'r'):
-            import nmap
+            with open("../coreFiles/newWords.log", 'r') as memFile:
+                definition = userInput + ": "
+                numbers = [1,2,3,4,5,6,7,8,9,0]
 
-            with open("../coreFiles/newWords.log") as f, \
-                nmap.nmap(f.fileno(), access=nmap.ACCESS_READ) as s:
-                if s.find(userInput) != -1:
-                    print(f"Does {userInput} mean: \"{s.find(userInput.strip(userInput + ' : It means '))}")
+                if "~" in definition:
+                    IDStrip = definition.strip(userInput + "~" + numbers)
+                    output = memFile.read(userInput.strip(IDStrip))
+
+                    # display definition
+                    print(output)
+                
+                else:
+                    output = definition
+                    print(output)
+
         else :
             print("Sorry, I don't know what that means...could you tell me, please?")
+            memFile = open("../coreFiles/newWords.log", 'r')
             learn = input("Define: ")
             if "It means " in learn:
                 with open("../coreFiles/newWords.log", "w+") as f:
                     f.write(f'{userInput} : {learn}')
                 f.close()
+
+            elif learn in open("../coreFiles/newWords.log", 'r'):
+                word = memFile.read("../coreFiles/newWords.log", 'r')
+
             else:
                 print("Please have \"It means\" at the start of the sentence")
+            
 
     except KeyboardInterrupt:
         import time
         print("\nOK! closing down!")
         time.sleep(2)
         exit(0)
+
+
+""" # PSEUDO CODE FOR SMART FILE READING 
+
+if input in memFile:
+    open and read memFile
+
+    if wordName === input:
+        if multiDefId = True:
+            strip Identifier
+            display definition
+        else:
+            display definition
+    
+    else:
+        ask for definition
+
+        confirm definition
+
+        if confirm === correct:
+            write and save
+        else:
+            ask for definition
+
+            confirm
+
+            (loopback)
+else:
+    pass
+
+"""
